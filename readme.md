@@ -1,117 +1,124 @@
-****************************************instalacion parcho grid y BD
+# Todo API
 
-        home oracle
-/u01/app/oracle/product/19c/db
+## Description
+This API allows you to manage a list of tasks. You can create, retrieve, update, and delete tasks.
 
-        home grid
-/u01/app/grid/product/19c/crs
+## Getting Started
+To run the application, you will need Python and Flask installed.
+1. Save the code as `app.py`.
+2. Open your terminal and navigate to the directory where you saved the file.
+3. Run the command `python app.py`.
+4. The application will be running on `http://127.0.0.1:5000/`.
 
-**revisar el inventario
-$ /u01/app/grid/product/19c/crs/OPatch/opatch lsinventory -detail -oh /u01/app/grid/product/19c/crs
+## API Endpoints
 
-**descomprimir archivo
-p34762026_190000_Linux-x86-64.zip
-34762026
+### Get All Tasks
+- **Endpoint:** `/tareas`
+- **Method:** `GET`
+- **Response:**
+  ```json
+  {
+    "tareas": [
+      {
+        "id": 1,
+        "titulo": "Comprar leche",
+        "descripcion": "Ir a la tienda y comprar leche",
+        "hecho": false
+      },
+      {
+        "id": 2,
+        "titulo": "Estudiar Python",
+        "descripcion": "Completar el tutorial de Python",
+        "hecho": false
+      }
+    ]
+  }
+  ```
 
-**revisar errores en parchos
-As the Grid home user:
+### Get a Specific Task
+- **Endpoint:** `/tareas/<tarea_id>`
+- **Method:** `GET`
+- **Response (Success):**
+  ```json
+  {
+    "tarea": {
+      "id": 1,
+      "titulo": "Comprar leche",
+      "descripcion": "Ir a la tienda y comprar leche",
+      "hecho": false
+    }
+  }
+  ```
+- **Response (Error - Task not found):**
+  ```json
+  {
+    "error": "Tarea no encontrada"
+  }
+  ```
 
-% $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /media/34762026/34765931
-																				
-% $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /media/34762026/34768559
-																				
-% $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /media/34762026/34768569
-																				
-% $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /media/34762026/34863894
-																				
-% $ORACLE_HOME/OPatch/opatch prereq CheckConflictAgainstOHWithDetail -phBaseDir /media/34762026/33575402
+### Add a New Task
+- **Endpoint:** `/tareas`
+- **Method:** `POST`
+- **Request Body:**
+  ```json
+  {
+    "titulo": "Nueva Tarea",
+    "descripcion": "Descripción de la nueva tarea"
+  }
+  ```
+- **Response:**
+  ```json
+  {
+    "tarea": {
+      "id": 3,
+      "titulo": "Nueva Tarea",
+      "descripcion": "Descripción de la nueva tarea",
+      "hecho": false
+    }
+  }
+  ```
 
+### Update an Existing Task
+- **Endpoint:** `/tareas/<tarea_id>`
+- **Method:** `PUT`
+- **Request Body (partial updates allowed):**
+  ```json
+  {
+    "titulo": "Título Actualizado",
+    "descripcion": "Descripción Actualizada",
+    "hecho": true
+  }
+  ```
+- **Response (Success):**
+  ```json
+  {
+    "tarea": {
+      "id": 1,
+      "titulo": "Título Actualizado",
+      "descripcion": "Descripción Actualizada",
+      "hecho": true
+    }
+  }
+  ```
+- **Response (Error - Task not found):**
+  ```json
+  {
+    "error": "Tarea no encontrada"
+  }
+  ```
 
-**revisar espacio de instalacion
-GRID
-
-vi /tmp/patch_list_gihome.txt
-/media/34762026/34765931
-/media/34762026/34768559
-/media/34762026/34768569
-
-$ORACLE_HOME/OPatch/opatch prereq CheckSystemSpace -phBaseFile /tmp/patch_list_gihome.txt
-
-BASE DE DATOS
-
-/media/34762026/34765931
-/media/34762026/34768559
-ORACLE_HOME/OPatch/opatch prereq CheckSystemSpace -phBaseFile /tmp/patch_list_dbhome.txt
-
-
-**si es un cluster verificar con este comando con las variable del grid, desde cualquier lado
-cluvfy stage -pre patch
-
-***********utilizar el opatch version OPatch 12.2.0.1.37
-
-
-con root exporta las variables y parchar 
-GRID
-export ORACLE_SID=+ASM
-export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=/u01/app/grid/product/19c/crs
-export PATH=/u01/app/grid/product/19c/crs/OPatch:/u01/app/grid/product/19c/crs/bin:/usr/sbin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/s
-
-BD
-export ORACLE_BASE=/u01/app/oracle
-export ORACLE_HOME=/u01/app/oracle/product/19c/db
-export PATH=/u01/app/oracle/product/19c/db/OPatch:/u01/app/oracle/product/19c/db/bin:/usr/sbin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/oracle/bin:/u01/app/oracle/product/19c/db/jdk/bin
-
-**nota: subir las BD para el parchado de las BD, para que el proceso corra el script de parchado, 
-en dado caso ver mas abajo como correr los script luego del parchado
-
-To patch the Grid home and all Oracle RAC database homes of the same version:
-# opatchauto apply /media/34762026
-
-To patch only the Grid home:
-# opatchauto apply /media/34762026 -oh /u01/app/grid/product/19c/crs
-
-To patch one or more Oracle RAC database homes:
-# opatchauto apply /media/34762026 -oh /u01/app/oracle/product/19c/db
-
-standalone DB
-setear las variable de la BD
-entrar a la BD
-subirla normal
-salir
-cd $ORACLE_HOME/OPatch
-./datapatch -verbose
-
-container DB
-setear las variable de la BD
-entrar a la BD
-subirla normal
-alter pluggable database all open;
-salir
-cd $ORACLE_HOME/OPatch
-./datapatch -verbose
-
-cuando se parche la BD correr script objetos invalido
-
-cd $ORACLE_HOME/rdbms/admin
-sqlplus / as sysdba
-@utlrp.sql
-
-
-*********parchado de java
-
-setear variable de BD del bash profile en el home de 19c
-export PATH=$ORACLE_HOME/perl/bin:$PATH
-export PERL5LIB=$ORACLE_HOME/perl/lib
-
-descomprimir archivo
-entrar a la ruta del parcho
-/media/34786990
-correr revision del parcho = opatch prereq CheckConflictAgainstOHWithDetail -ph ./
-
-luego de eso, aplicar parcho 
-
-opatch apply
-
-
-necesito que me documente este codigo en 
+### Delete a Task
+- **Endpoint:** `/tareas/<tarea_id>`
+- **Method:** `DELETE`
+- **Response (Success):**
+  ```json
+  {
+    "resultado": "Tarea eliminada"
+  }
+  ```
+- **Response (Error - Task not found):**
+  ```json
+  {
+    "error": "Tarea no encontrada"
+  }
+  ```
