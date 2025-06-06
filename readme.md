@@ -1,14 +1,17 @@
-# Todo API
+# API de Tareas
 
-## Description
-This API allows you to manage a list of tasks. You can create, retrieve, update, and delete tasks.
+## Descripción
+Esta API permite administrar una lista de tareas. Puedes crear, obtener, actualizar y eliminar tareas.
 
-## Getting Started
-To run the application, you will need Python and Flask installed.
-1. Save the code as `app.py`.
-2. Open your terminal and navigate to the directory where you saved the file.
-3. Run the command `python app.py`.
-4. The application will be running on `http://127.0.0.1:5000/`.
+## Instalación
+1. Asegúrate de tener Python 3 instalado.
+2. Instala Flask con el comando `pip install Flask`.
+3. Guarda el archivo `app.py` en un directorio local.
+
+## Puesta en marcha
+1. Abre una terminal y navega hasta la carpeta donde guardaste el archivo.
+2. Ejecuta `python app.py`.
+3. La aplicación estará disponible en `http://127.0.0.1:5000/`.
 
 ## API Endpoints
 
