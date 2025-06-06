@@ -31,6 +31,8 @@ def obtener_tarea(tarea_id):
 
 @app.route("/tareas", methods=["POST"])
 def agregar_tarea():
+    if not request.is_json or "titulo" not in request.json or "descripcion" not in request.json:
+        return jsonify({"error": "Solicitud incorrecta"}), 400
     tarea = {
         "id": tareas[-1]["id"] + 1 if len(tareas) > 0 else 1,
         "titulo": request.json["titulo"],
@@ -45,6 +47,8 @@ def actualizar_tarea(tarea_id):
     tarea = [t for t in tareas if t["id"] == tarea_id]
     if len(tarea) == 0:
         return jsonify({"error": "Tarea no encontrada"}), 404
+    if not request.is_json:
+        return jsonify({"error": "Solicitud incorrecta"}), 400
     tarea[0]["titulo"] = request.json.get("titulo", tarea[0]["titulo"])
     tarea[0]["descripcion"] = request.json.get("descripcion", tarea[0]["descripcion"])
     tarea[0]["hecho"] = request.json.get("hecho", tarea[0]["hecho"])
