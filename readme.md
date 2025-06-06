@@ -1,7 +1,7 @@
 # API de Tareas
 
 ## Descripción
-Esta API permite administrar una lista de tareas. Puedes crear, obtener, actualizar y eliminar tareas.
+This API allows you to manage a list of tasks. You can create, retrieve, update, and delete tasks.
 
 ## Instalación
 1. Asegúrate de tener Python 3 instalado.
