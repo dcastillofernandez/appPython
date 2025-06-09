@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
+import csv
+from io import StringIO
 
 app = Flask(__name__)
 
@@ -61,6 +63,19 @@ def eliminar_tarea(tarea_id):
         return jsonify({"error": "Tarea no encontrada"}), 404
     tareas.remove(tarea[0])
     return jsonify({"resultado": "Tarea eliminada"})
+
+# Nuevo endpoint para exportar tareas en formato CSV
+@app.route("/tareas/export", methods=["GET"])
+def exportar_tareas_csv():
+    """Devuelve todas las tareas en formato CSV."""
+    with StringIO() as buffer:
+        writer = csv.DictWriter(buffer, fieldnames=["id", "titulo", "descripcion", "hecho"])
+        writer.writeheader()
+        writer.writerows(tareas)
+        csv_data = buffer.getvalue()
+    response = Response(csv_data, mimetype="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=tareas.csv"
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
