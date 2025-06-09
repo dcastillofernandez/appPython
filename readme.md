@@ -125,3 +125,13 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
     "error": "Tarea no encontrada"
   }
   ```
+
+### Export Tasks as CSV
+- **Endpoint:** `/tareas/export`
+- **Method:** `GET`
+- **Response:** Returns a CSV file (`text/csv`) containing all tasks. Example content:
+  ```csv
+  id,titulo,descripcion,hecho
+  1,Comprar leche,Ir a la tienda y comprar leche,False
+  2,Estudiar Python,Completar el tutorial de Python,False
+  ```
