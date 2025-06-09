@@ -68,12 +68,11 @@ def eliminar_tarea(tarea_id):
 @app.route("/tareas/export", methods=["GET"])
 def exportar_tareas_csv():
     """Devuelve todas las tareas en formato CSV."""
-    buffer = StringIO()
-    writer = csv.DictWriter(buffer, fieldnames=["id", "titulo", "descripcion", "hecho"])
-    writer.writeheader()
-    writer.writerows(tareas)
-    csv_data = buffer.getvalue()
-    buffer.close()
+    with StringIO() as buffer:
+        writer = csv.DictWriter(buffer, fieldnames=["id", "titulo", "descripcion", "hecho"])
+        writer.writeheader()
+        writer.writerows(tareas)
+        csv_data = buffer.getvalue()
     response = Response(csv_data, mimetype="text/csv")
     response.headers["Content-Disposition"] = "attachment; filename=tareas.csv"
     return response
