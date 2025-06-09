@@ -1,7 +1,7 @@
 # API de Tareas
 
 ## Descripción
-This API allows you to manage a list of tasks. You can create, retrieve, update, and delete tasks.
+Esta API permite administrar una lista de tareas. Puedes crear, obtener, actualizar y eliminar tareas.
 
 ## Instalación
 1. Asegúrate de tener Python 3 instalado.
@@ -13,9 +13,9 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
 2. Ejecuta `python app.py`.
 3. La aplicación estará disponible en `http://127.0.0.1:5000/`.
 
-## API Endpoints
+## Endpoints de la API
 
-### Get All Tasks
+### Obtener todas las tareas
 - **Endpoint:** `/tareas`
 - **Method:** `GET`
 - **Response:**
@@ -38,10 +38,10 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
   }
   ```
 
-### Get a Specific Task
+### Obtener una tarea específica
 - **Endpoint:** `/tareas/<tarea_id>`
 - **Method:** `GET`
-- **Response (Success):**
+- **Respuesta (éxito):**
   ```json
   {
     "tarea": {
@@ -52,17 +52,17 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
     }
   }
   ```
-- **Response (Error - Task not found):**
+- **Respuesta (error - tarea no encontrada):**
   ```json
   {
     "error": "Tarea no encontrada"
   }
   ```
 
-### Add a New Task
+### Agregar una nueva tarea
 - **Endpoint:** `/tareas`
 - **Method:** `POST`
-- **Request Body:**
+- **Cuerpo de la solicitud:**
   ```json
   {
     "titulo": "Nueva Tarea",
@@ -81,10 +81,10 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
   }
   ```
 
-### Update an Existing Task
+### Actualizar una tarea existente
 - **Endpoint:** `/tareas/<tarea_id>`
 - **Method:** `PUT`
-- **Request Body (partial updates allowed):**
+- **Cuerpo de la solicitud (se permiten actualizaciones parciales):**
   ```json
   {
     "titulo": "Título Actualizado",
@@ -92,7 +92,7 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
     "hecho": true
   }
   ```
-- **Response (Success):**
+- **Respuesta (éxito):**
   ```json
   {
     "tarea": {
@@ -103,30 +103,30 @@ This API allows you to manage a list of tasks. You can create, retrieve, update,
     }
   }
   ```
-- **Response (Error - Task not found):**
+- **Respuesta (error - tarea no encontrada):**
   ```json
   {
     "error": "Tarea no encontrada"
   }
   ```
 
-### Delete a Task
+### Eliminar una tarea
 - **Endpoint:** `/tareas/<tarea_id>`
 - **Method:** `DELETE`
-- **Response (Success):**
+- **Respuesta (éxito):**
   ```json
   {
     "resultado": "Tarea eliminada"
   }
   ```
-- **Response (Error - Task not found):**
+- **Respuesta (error - tarea no encontrada):**
   ```json
   {
     "error": "Tarea no encontrada"
   }
   ```
 
-### Export Tasks as CSV
+### Exportar tareas a CSV
 - **Endpoint:** `/tareas/export`
 - **Method:** `GET`
 - **Response:** Returns a CSV file (`text/csv`) containing all tasks. Example content:
