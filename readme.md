@@ -5,8 +5,8 @@ Esta API permite administrar una lista de tareas. Puedes crear, obtener, actuali
 
 ## Instalación
 1. Asegúrate de tener Python 3 instalado.
-2. Instala Flask con el comando `pip install Flask`.
-3. Guarda el archivo `app.py` en un directorio local.
+2. Instala las dependencias con el comando `pip install -r requirements.txt`.
+3. El proyecto incluye los archivos necesarios en el directorio local.
 
 ## Puesta en marcha
 1. Abre una terminal y navega hasta la carpeta donde guardaste el archivo.
@@ -135,3 +135,22 @@ Esta API permite administrar una lista de tareas. Puedes crear, obtener, actuali
   1,Comprar leche,Ir a la tienda y comprar leche,False
   2,Estudiar Python,Completar el tutorial de Python,False
   ```
+
+## Testing
+El proyecto incluye un script de prueba `test_api.py` que valida todas las funcionalidades de la API:
+
+```bash
+# Primero ejecuta la aplicación
+python app.py
+
+# En otra terminal, ejecuta las pruebas
+python test_api.py
+```
+
+El script de prueba verificará:
+- Obtener todas las tareas (GET /tareas)
+- Obtener tarea específica (GET /tareas/<id>)
+- Crear nueva tarea (POST /tareas)
+- Actualizar tarea (PUT /tareas/<id>)
+- Eliminar tarea (DELETE /tareas/<id>)
+- Exportar tareas a CSV (GET /tareas/export)
